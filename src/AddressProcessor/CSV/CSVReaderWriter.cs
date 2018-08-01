@@ -6,6 +6,12 @@ namespace AddressProcessing.CSV
     /*
         2) Refactor this class into clean, elegant, rock-solid & well performing code, without over-engineering.
            Assume this code is in production and backwards compatibility must be maintained.
+
+        at the moment the class is small enough to stay as it is, 
+        but if the method grows to do other things, i would expect this class to be refactored to 2 different classes , 
+        1 for reading and 1 for writing , 
+        while there can be an abstraction can be done to split them but if this is not needed as this is easier to maintain 
+        then i think we can stick with this for now as refactoring can never end.  
     */
 
     public class CSVReaderWriter : IDisposable
@@ -20,7 +26,7 @@ namespace AddressProcessing.CSV
         const int FIRST_COLUMN = 0;
         const int SECOND_COLUMN = 1;
 
-
+        
      
         /// <summary>
         /// added this to make the code testable 
@@ -61,19 +67,15 @@ namespace AddressProcessing.CSV
         {
             WriteLine(ColToString(columns));
         }
-
+        /// <summary>
+        /// googled to stack overflow to find out which is faster. 
+        /// https://stackoverflow.com/questions/585860/string-join-vs-stringbuilder-which-is-faster
+        /// </summary>
+        /// <param name="columns"></param>
+        /// <returns></returns>
         public string ColToString(params string[] columns)
         {
-            string outPut = "";
-            for (int i = 0; i < columns.Length; i++)
-            {
-                outPut += columns[i];
-                if ((columns.Length - 1) != i)
-                {
-                    outPut += WRITE_SEPARATOR;
-                }
-            }
-            return outPut;
+            return string.Join(WRITE_SEPARATOR, columns);
         }
 
         public bool Read(out string column1, out string column2)
@@ -135,7 +137,7 @@ namespace AddressProcessing.CSV
                     //
                     if (_readerStream != null)
                     {
-                        _readerStream.Close();
+                        _readerStream.Dispose();
                     }
 
                     if (_writerStream != null)

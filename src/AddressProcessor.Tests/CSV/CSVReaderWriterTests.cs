@@ -149,7 +149,49 @@ namespace Csv.Tests
             sut.Close();
 
         }
+        /// <summary>
+        ///ok i missed this test for closing the file / executing the close via the dispose. 
+        /// </summary>
+        [Test]
+        public void Close_when_open_with_write_should_set_Write_stream_to_null()
+        {
+            //arrange
+            var sut = new CSVReaderWriter();
+            
+            //act
+            sut.Open(TestWriteInputFile, CSVReaderWriter.Mode.Write);
+            sut.Close();
 
+
+            //assert
+            Assert.That(sut.WriteStreamValid, Is.False);
+
+            //clean up 
+            //this is not ideal.. but will work for now since i can't refactor File out due to backwards compatibility.
+            if (System.IO.File.Exists(TestWriteInputFile)) System.IO.File.Delete(TestWriteInputFile);
+
+        }
+        /// <summary>
+        /// and for the read - ok i missed this test for closing the file / executing the close via the dispose. 
+        /// </summary>
+        [Test]
+        public void Close_when_open_with_read_should_set_read_stream_to_null()
+        {
+            //arrange
+            var sut = new CSVReaderWriter();
+            
+
+            //act
+            sut.Open(TestInputFile, CSVReaderWriter.Mode.Read);
+            sut.Close();
+
+
+            //assert
+            Assert.That(sut.ReadStreamValid, Is.False);
+
+            
+
+        }
 
 
     }
