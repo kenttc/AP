@@ -127,6 +127,30 @@ namespace Csv.Tests
 
         }
 
+        /// <summary>
+        /// needed to do this to make the code testable - tradeoff here is i had to make this public as the write to line is at the moment not testable unless i create an interface for File and use moq to verify the right calls have been made while writing the line
+        /// </summary>
+        [Test]
+        public void Cols_to_string_should_end_with_tab()
+        {
+            //arrange
+            var sut = new CSVReaderWriter();
+            string[] cols = { "col1", "col2"};
+            
+            //act
+            sut.Open(TestInputFile, CSVReaderWriter.Mode.Read);
+            var result = sut.ColToString(cols);
+
+
+            //assert
+            Assert.That(result, Is.EqualTo("col1\tcol2"));
+
+            //clean up 
+            sut.Close();
+
+        }
+
+
 
     }
 }

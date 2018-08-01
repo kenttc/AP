@@ -57,8 +57,12 @@ namespace AddressProcessing.CSV
 
         public void Write(params string[] columns)
         {
-            string outPut = "";
+            WriteLine(ColToString(columns));
+        }
 
+        public string ColToString(params string[] columns)
+        {
+            string outPut = "";
             for (int i = 0; i < columns.Length; i++)
             {
                 outPut += columns[i];
@@ -67,8 +71,7 @@ namespace AddressProcessing.CSV
                     outPut += WRITE_SEPARATOR;
                 }
             }
-
-            WriteLine(outPut);
+            return outPut;
         }
 
         public bool Read(out string column1, out string column2)
