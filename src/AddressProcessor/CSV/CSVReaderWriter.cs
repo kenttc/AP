@@ -19,7 +19,7 @@ namespace AddressProcessing.CSV
         /// as the point in time there's no figure out if the file exists or not
         /// </summary>
         public bool ReadStreamValid => _readerStream != null;
-
+        public bool WriteStreamValid;
         [Flags]
         public enum Mode { Read = 1, Write = 2 };
 
