@@ -13,7 +13,8 @@ namespace Csv.Tests
         private const string TestWriteInputFile = @"..\..\test_data\writecontacts.csv";
 
         /// <summary>
-        /// I am doing this because i try not to touch code before there are test in place to ensure all i don't break existing functionality. 
+        /// I am doing this because i try not to touch / refactor - code before there are test in place to ensure all i don't break existing functionality. 
+        /// but i added some code as it's new functionality to allow me testing capabilities
         /// this is what i learnt from working with legacy code - michael c feathers
         /// </summary>
         [Test]
@@ -44,23 +45,11 @@ namespace Csv.Tests
 
             //clean up 
             sut.Close();
+            //this is not ideal.. but will work for now since i can't refactor File out due to backwards compatibility.
+            if(System.IO.File.Exists(TestWriteInputFile))System.IO.File.Delete(TestWriteInputFile);
         }
 
-
-        [Test]
-        public void CSVReaderWriter_Open_when_mode_is_write_will_return_WriteStreamValid()
-        {
-            //arrange
-            var sut = new CSVReaderWriter();
-            //act
-            sut.Open(TestWriteInputFile, CSVReaderWriter.Mode.Write);
-
-            //assert
-            Assert.That(sut.WriteStreamValid, "Unable to open text file");
-
-            //clean up 
-            sut.Close();
-        }
+    // ok i wanted to write tests for Write but it seems that the addressFileProcessorTest will cover the write since it accurately  has the number of contacts to be written
 
 
     }
