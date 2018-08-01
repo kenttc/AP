@@ -12,7 +12,10 @@ namespace Csv.Tests
         private const string TestInputFile = @"..\..\test_data\contacts.csv";
         private const string TestWriteInputFile = @"..\..\test_data\writecontacts.csv";
 
-
+        /// <summary>
+        /// I am doing this because i try not to touch code before there are test in place to ensure all i don't break existing functionality. 
+        /// this is what i learnt from working with legacy code - michael c feathers
+        /// </summary>
         [Test]
         public void CSVReaderWriter_Open_when_mode_is_read_and_file_is_valid_will_return_ReadStreamValid()
         {

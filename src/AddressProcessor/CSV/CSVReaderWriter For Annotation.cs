@@ -13,6 +13,7 @@ namespace AddressProcessing.CSV
         *)we could implement Idisposable for this class so the closing is more standardised
         *)output could use stringbuilder as it's mutable instead of string + which is immutable 
         * ) i would use switch for Open ( read and write) 
+        * ) for open - the else would never run because it's working based on an enum. 
         * 
     */
 
