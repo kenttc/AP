@@ -8,7 +8,7 @@ namespace AddressProcessing.CSV
            Assume this code is in production and backwards compatibility must be maintained.
     */
 
-    public class CSVReaderWriter
+    public class CSVReaderWriter : IDisposable
     {
         private StreamReader _readerStream = null;
         private StreamWriter _writerStream = null;
@@ -152,15 +152,55 @@ namespace AddressProcessing.CSV
 
         public void Close()
         {
-            if (_writerStream != null)
-            {
-                _writerStream.Close();
-            }
+            this.Dispose();
+        }
 
-            if (_readerStream != null)
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
             {
-                _readerStream.Close();
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                    //
+                    if (_readerStream != null)
+                    {
+                        _readerStream.Close();
+                    }
+
+                    if (_writerStream != null)
+                    {
+                        _writerStream.Dispose();
+                    }
+                        
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+                _readerStream = null;
+                _writerStream = null;
+
+                disposedValue = true;
             }
         }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~CSVReaderWriter() {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
