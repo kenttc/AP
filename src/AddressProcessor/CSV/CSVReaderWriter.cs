@@ -115,7 +115,7 @@ namespace AddressProcessing.CSV
 
             columns = line.Split(separator);
 
-            if (columns.Length == 0)
+            if (columns.Length == 0 )
             {
                 column1 = null;
                 column2 = null;
@@ -124,6 +124,15 @@ namespace AddressProcessing.CSV
             } 
             else
             {
+
+                if(string.IsNullOrEmpty(columns[FIRST_COLUMN]) || string.IsNullOrEmpty(columns[SECOND_COLUMN]))
+                {
+                    column1 = null;
+                    column2 = null;
+
+                    return false;
+
+                }
                 column1 = columns[FIRST_COLUMN];
                 column2 = columns[SECOND_COLUMN];
 

@@ -68,6 +68,9 @@ namespace Csv.Tests
 
             //assert
             Assert.That(result, Is.False);
+            Assert.That(col1Out, Is.Null);
+            Assert.That(col2Out, Is.Null);
+
 
             //clean up 
             sut.Close();
@@ -75,7 +78,9 @@ namespace Csv.Tests
         }
 
 
-
+        /// <summary>
+        /// this will test edge cases when file has tabs but nothing in the column as an enhancement?
+        /// </summary>
         [Test]
         public void Read_when_file_column_is_empty_return_false()
         {
@@ -89,6 +94,8 @@ namespace Csv.Tests
 
             //assert
             Assert.That(result, Is.False);
+            Assert.That(col1Out, Is.Null);
+            Assert.That(col2Out, Is.Null);
 
             //clean up 
             sut.Close();
