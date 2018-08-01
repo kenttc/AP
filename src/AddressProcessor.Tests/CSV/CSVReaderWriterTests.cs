@@ -56,7 +56,7 @@ namespace Csv.Tests
 
 
         [Test]
-        public void Read_when_file_is_empty_return_false()
+        public void Read_when_file_is_empty_return_false_and_out_values_null()
         {
             //arrange
             var sut = new CSVReaderWriter();
@@ -82,7 +82,7 @@ namespace Csv.Tests
         /// this will test edge cases when file has tabs but nothing in the column as an enhancement?
         /// </summary>
         [Test]
-        public void Read_when_file_column_is_empty_return_false()
+        public void Read_when_file_column_is_empty_return_false_and_out_values_null()
         {
             //arrange
             var sut = new CSVReaderWriter();
@@ -101,6 +101,32 @@ namespace Csv.Tests
             sut.Close();
             
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Test]
+        public void Read_when_file_column_is_valid_return_true_and_outValues_as_expected()
+        {
+            //arrange
+            var sut = new CSVReaderWriter();
+            string col1Out = "";
+            string col2Out = "";
+            //act
+            sut.Open(TestInputFile, CSVReaderWriter.Mode.Read);
+            var result = sut.Read(out col1Out, out col2Out);
+
+            //assert
+            Assert.That(result, Is.True);
+            Assert.That(col1Out, Is.EqualTo("Shelby Macias"));
+            Assert.That(col2Out, Is.EqualTo("3027 Lorem St.|Kokomo|Hertfordshire|L9T 3D5|England"));
+
+            //clean up 
+            sut.Close();
+
+        }
+
 
     }
 }
