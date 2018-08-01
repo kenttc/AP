@@ -40,19 +40,21 @@ namespace AddressProcessing.CSV
 
         public void Open(string fileName, Mode mode)
         {
-            if (mode == Mode.Read)
+            switch (mode)
             {
-                _readerStream = File.OpenText(fileName);
+                case Mode.Read:
+                    _readerStream = File.OpenText(fileName);
+                    break;
+                case Mode.Write:
+                    FileInfo fileInfo = new FileInfo(fileName);
+                    _writerStream = fileInfo.CreateText();
+                    break;
+                default:
+                    //technically will never fire unless the enum changes without notice
+                    throw new Exception("Unknown file mode for " + fileName);
+                    
             }
-            else if (mode == Mode.Write)
-            {
-                FileInfo fileInfo = new FileInfo(fileName);
-                _writerStream = fileInfo.CreateText();
-            }
-            else
-            {
-                throw new Exception("Unknown file mode for " + fileName);
-            }
+  
         }
 
         public void Write(params string[] columns)
