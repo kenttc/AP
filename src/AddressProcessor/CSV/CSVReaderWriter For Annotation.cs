@@ -7,14 +7,15 @@ namespace AddressProcessing.CSV
         1) List three to five key concerns with this implementation that you would discuss with the junior developer. 
 
         Please leave the rest of this file as it is so we can discuss your concerns during the next stage of the interview process.
-        
+        *) granted that i missed the comment on this class not having any tests, that should have been the first thing i brought up and then with the tests in place then the junior would have been able to avoid a lot of these issues with the code as some of the code would never fire. 
+        * )
         *)const can be refactored out to the top of the class so that it doesn't get repeated. 
         *)where possible use gated if - so that we don't really need to use else
         *)we could implement Idisposable for this class so the closing is more standardised
         *)output could use stringbuilder as it's mutable instead of string + which is immutable 
         * ) i would use switch for Open ( read and write) 
         * ) for open - the else would never run because it's working based on an enum. 
-        * 
+        * ) it seems that there's an overloaded read method and one of the method is not used at all which i think can be removed unless it's used elsewhere
     */
 
     public class CSVReaderWriterForAnnotation

@@ -11,7 +11,9 @@ namespace Csv.Tests
     {
         private const string TestInputFile = @"..\..\test_data\contacts.csv";
         private const string TestWriteInputFile = @"..\..\test_data\writecontacts.csv";
-
+        private const string TestEmptyInputFile = @"..\..\test_data\empty.csv";
+        private const string TestEmptyWithTabsInputFile = @"..\..\test_data\emptyWithTabs.csv";
+ 
         /// <summary>
         /// I am doing this because i try not to touch / refactor - code before there are test in place to ensure all i don't break existing functionality. 
         /// but i added some code as it's new functionality to allow me testing capabilities
@@ -49,8 +51,49 @@ namespace Csv.Tests
             if(System.IO.File.Exists(TestWriteInputFile))System.IO.File.Delete(TestWriteInputFile);
         }
 
-    // ok i wanted to write tests for Write but it seems that the addressFileProcessorTest will cover the write since it accurately  has the number of contacts to be written
+        // ok i wanted to write tests for Write but it seems that the addressFileProcessorTest will cover the write since it accurately  has the number of contacts to be written
 
+
+
+        [Test]
+        public void Read_when_file_is_empty_return_false()
+        {
+            //arrange
+            var sut = new CSVReaderWriter();
+            string col1Out = "";
+            string col2Out = "";
+            //act
+            sut.Open(TestEmptyInputFile, CSVReaderWriter.Mode.Read);
+            var result = sut.Read(out col1Out, out col2Out);
+
+            //assert
+            Assert.That(result, Is.False);
+
+            //clean up 
+            sut.Close();
+
+        }
+
+
+
+        [Test]
+        public void Read_when_file_column_is_empty_return_false()
+        {
+            //arrange
+            var sut = new CSVReaderWriter();
+            string col1Out = "";
+            string col2Out = "";
+            //act
+            sut.Open(TestEmptyWithTabsInputFile, CSVReaderWriter.Mode.Read);
+            var result = sut.Read(out col1Out, out col2Out);
+
+            //assert
+            Assert.That(result, Is.False);
+
+            //clean up 
+            sut.Close();
+            
+        }
 
     }
 }

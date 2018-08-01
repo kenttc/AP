@@ -74,6 +74,7 @@ namespace AddressProcessing.CSV
             char[] separator = { '\t' };
 
             line = ReadLine();
+
             columns = line.Split(separator);
 
             if (columns.Length == 0)
