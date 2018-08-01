@@ -10,7 +10,6 @@ namespace AddressProcessing.CSV
         
         *)const can be refactored out to the top of the class so that it doesn't get repeated. 
         *)where possible use gated if - so that we don't really need to use else
-        *)I would put extract the static File class to implement an IFile so that it can be injected during construction so it's decoupled
         *)we could implement Idisposable for this class so the closing is more standardised
         *)output could use stringbuilder as it's mutable instead of string + which is immutable 
         * 
