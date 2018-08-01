@@ -12,7 +12,14 @@ namespace AddressProcessing.CSV
     {
         private StreamReader _readerStream = null;
         private StreamWriter _writerStream = null;
-        
+
+
+        /// <summary>
+        /// added this to make the code testable 
+        /// as the point in time there's no figure out if the file exists or not
+        /// </summary>
+        public bool ReadStreamValid => _readerStream != null;
+
         [Flags]
         public enum Mode { Read = 1, Write = 2 };
 
