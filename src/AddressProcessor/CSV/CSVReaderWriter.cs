@@ -85,29 +85,18 @@ namespace AddressProcessing.CSV
 
             columns = line.Split(separator);
 
-            if (columns.Length == 0 )
+            if(string.IsNullOrEmpty(columns[FIRST_COLUMN]) || string.IsNullOrEmpty(columns[SECOND_COLUMN]))
             {
                 column1 = null;
                 column2 = null;
 
                 return false;
-            } 
-            else
-            {
 
-                if(string.IsNullOrEmpty(columns[FIRST_COLUMN]) || string.IsNullOrEmpty(columns[SECOND_COLUMN]))
-                {
-                    column1 = null;
-                    column2 = null;
-
-                    return false;
-
-                }
-                column1 = columns[FIRST_COLUMN];
-                column2 = columns[SECOND_COLUMN];
-
-                return true;
             }
+            column1 = columns[FIRST_COLUMN];
+            column2 = columns[SECOND_COLUMN];
+
+            return true;
         }
 
         private void WriteLine(string line)
