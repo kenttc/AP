@@ -13,7 +13,15 @@ namespace AddressProcessing.CSV
         private StreamReader _readerStream = null;
         private StreamWriter _writerStream = null;
 
+        private char[] _separator = { '\t' };
 
+        const string WRITE_SEPARATOR = "\t";
+
+        const int FIRST_COLUMN = 0;
+        const int SECOND_COLUMN = 1;
+
+
+     
         /// <summary>
         /// added this to make the code testable 
         /// as the point in time there's no figure out if the file exists or not
@@ -56,7 +64,7 @@ namespace AddressProcessing.CSV
                 outPut += columns[i];
                 if ((columns.Length - 1) != i)
                 {
-                    outPut += "\t";
+                    outPut += WRITE_SEPARATOR;
                 }
             }
 
@@ -65,34 +73,29 @@ namespace AddressProcessing.CSV
 
         public bool Read(out string column1, out string column2)
         {
-            const int FIRST_COLUMN = 0;
-            const int SECOND_COLUMN = 1;
+
+            column1 = null;
+            column2 = null;
 
             string line;
             string[] columns;
 
-            char[] separator = { '\t' };
+            
 
             line = ReadLine();
 
             if (line == null)
             {
-                column1 = null;
-                column2 = null;
-
                 return false;
             }
-
-            columns = line.Split(separator);
+            
+            columns = line.Split(_separator);
 
             if(string.IsNullOrEmpty(columns[FIRST_COLUMN]) || string.IsNullOrEmpty(columns[SECOND_COLUMN]))
             {
-                column1 = null;
-                column2 = null;
-
                 return false;
-
             }
+
             column1 = columns[FIRST_COLUMN];
             column2 = columns[SECOND_COLUMN];
 
@@ -123,7 +126,7 @@ namespace AddressProcessing.CSV
             {
                 if (disposing)
                 {
-                    // TODO: dispose managed state (managed objects).
+                    
                     //
                     if (_readerStream != null)
                     {
@@ -137,8 +140,7 @@ namespace AddressProcessing.CSV
                         
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
+                
                 _readerStream = null;
                 _writerStream = null;
 
@@ -146,11 +148,6 @@ namespace AddressProcessing.CSV
             }
         }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~CSVReaderWriter() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
 
         // This code added to correctly implement the disposable pattern.
         public void Dispose()
