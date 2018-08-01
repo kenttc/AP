@@ -12,7 +12,7 @@ namespace AddressProcessing.CSV
     {
         private StreamReader _readerStream = null;
         private StreamWriter _writerStream = null;
-
+        
         [Flags]
         public enum Mode { Read = 1, Write = 2 };
 
