@@ -97,6 +97,10 @@ namespace AddressProcessing.CSV
             }
             
             columns = line.Split(_separator);
+            if(columns?.Length <= 1)
+            {
+                return false;
+            }
 
             if(string.IsNullOrEmpty(columns[FIRST_COLUMN]) || string.IsNullOrEmpty(columns[SECOND_COLUMN]))
             {

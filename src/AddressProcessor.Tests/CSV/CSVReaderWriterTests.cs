@@ -13,7 +13,8 @@ namespace Csv.Tests
         private const string TestWriteInputFile = @"..\..\test_data\writecontacts.csv";
         private const string TestEmptyInputFile = @"..\..\test_data\empty.csv";
         private const string TestEmptyWithTabsInputFile = @"..\..\test_data\emptyWithTabs.csv";
- 
+        private const string TestOtherFile = @"..\..\test_data\NotabsString.csv";
+        
         /// <summary>
         /// I am doing this because i try not to touch / refactor - code before there are test in place to ensure all i don't break existing functionality. 
         /// but i added some code as it's new functionality to allow me testing capabilities
@@ -193,6 +194,28 @@ namespace Csv.Tests
 
         }
 
+        /// <summary>
+        /// no tabs string file
+        /// </summary>
+        [Test]
+        public void Read_EdgeCase_Open_read_no_tabs_file()
+        {
+            //arrange
+            var sut = new CSVReaderWriter();
+            string column1 = "";
+            string column2 = "";
+
+            //act
+            sut.Open(TestOtherFile, CSVReaderWriter.Mode.Read);
+            sut.Read(out column1, out column2);
+            sut.Close();
+
+            //assert
+            Assert.That(sut.ReadStreamValid, Is.False);
+
+
+
+        }
 
     }
 }
